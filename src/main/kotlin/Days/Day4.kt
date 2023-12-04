@@ -4,7 +4,7 @@ import java.io.File
 import kotlin.math.pow
 
 class Day4: Day {
-    val cards = File("src/main/resources/Data/Day_4.txt").readLines().map(::Card)
+    private val cards = File("src/main/resources/Data/Day_4.txt").readLines().map(::Card)
     override fun executePartOne() {
         println(cards.sumOf { it.score })
     }
@@ -15,11 +15,11 @@ class Day4: Day {
 }
 
 class Card(input: String) {
-    val winningNumbers: Set<Int>
-    val numbers: Set<Int>
+    private val winningNumbers: Set<Int>
+    private val numbers: Set<Int>
 
-    val winningRegex = Regex("Card +\\d+: +((\\d+ +)*)")
-    val numbersRegex = Regex("\\|(( +\\d+)*)")
+    private val winningRegex = Regex("Card +\\d+: +((\\d+ +)*)")
+    private val numbersRegex = Regex("\\|(( +\\d+)*)")
 
     val score: Int
         get() {

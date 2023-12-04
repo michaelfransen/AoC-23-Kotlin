@@ -26,25 +26,16 @@ class Card(input: String) {
            return 2.0.pow(winningNumbers.intersect(numbers).count().toDouble() - 1).toInt()
         }
 
-    init {
-        winningNumbers = winningRegex
-            .find(input)?.
-            groups?.
-            get(1)?.
-            value?.
-            split(" ")?.
-            filter { it.isNotEmpty() }?.
-            map { it.toInt() }!!
+    private val parse: (input: String, regex: Regex) -> (Set<Int>) = { value, regex ->
+        regex.find(value)!!.groups[1]!!.value
+            .split(" ")
+            .filter { it.isNotEmpty() }
+            .map { it.toInt() }
             .toSet()
+    }
 
-        numbers = numbersRegex
-            .find(input)?.
-            groups?.
-            get(1)?.
-            value?.
-            split(" ")?.
-            filter { it.isNotEmpty() }?.
-            map { it.toInt() }!!
-            .toSet()
+    init {
+        winningNumbers = parse(input, winningRegex)
+        numbers = parse(input, numbersRegex)
     }
 }

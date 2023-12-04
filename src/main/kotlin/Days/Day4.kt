@@ -1,6 +1,9 @@
 package Days
 
 import java.io.File
+import java.time.Duration
+import java.time.LocalDate
+import java.time.LocalDateTime
 import kotlin.math.pow
 
 class Day4: Day {
@@ -10,17 +13,31 @@ class Day4: Day {
     }
 
     override fun executePartTwo() {
-        TODO("Not yet implemented")
+        println(cards.sumOf { processCard(it) })
+    }
+
+    private fun processCard(card: Card): Int {
+        if (card.id == cards.count()) { return 1 }
+
+        return cards
+            .subList(card.id, card.id + card.numberOfWinningMatches)
+            .sumOf { processCard(it) } + 1
     }
 }
 
 class Card(input: String) {
+    val id: Int
     private val winningNumbers: Set<Int>
     private val numbers: Set<Int>
 
     val score: Int
         get() {
            return 2.0.pow(winningNumbers.intersect(numbers).count().toDouble() - 1).toInt()
+        }
+
+    val numberOfWinningMatches: Int
+        get() {
+            return winningNumbers.intersect(numbers).count()
         }
 
     private val parse: (input: String, regex: Regex) -> (Set<Int>) = { value, regex ->
@@ -32,6 +49,7 @@ class Card(input: String) {
     }
 
     init {
+        id = Regex("Card +(\\d+):").find(input)!!.groups[1]!!.value.toInt()
         winningNumbers = parse(input, Regex("Card +\\d+: +((\\d+ +)*)"))
         numbers = parse(input, Regex("\\|(( +\\d+)*)"))
     }

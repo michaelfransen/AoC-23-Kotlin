@@ -18,9 +18,6 @@ class Card(input: String) {
     private val winningNumbers: Set<Int>
     private val numbers: Set<Int>
 
-    private val winningRegex = Regex("Card +\\d+: +((\\d+ +)*)")
-    private val numbersRegex = Regex("\\|(( +\\d+)*)")
-
     val score: Int
         get() {
            return 2.0.pow(winningNumbers.intersect(numbers).count().toDouble() - 1).toInt()
@@ -35,7 +32,7 @@ class Card(input: String) {
     }
 
     init {
-        winningNumbers = parse(input, winningRegex)
-        numbers = parse(input, numbersRegex)
+        winningNumbers = parse(input, Regex("Card +\\d+: +((\\d+ +)*)"))
+        numbers = parse(input, Regex("\\|(( +\\d+)*)"))
     }
 }

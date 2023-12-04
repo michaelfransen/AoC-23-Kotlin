@@ -13,6 +13,7 @@ class Day4: Day {
         TODO("Not yet implemented")
     }
 }
+
 class Card(input: String) {
     val winningNumbers: Set<Int>
     val numbers: Set<Int>

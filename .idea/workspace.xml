@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dfa68222-11c9-44ca-a743-a2921e84f6ab" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Days/Day3.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Days/Day4.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Data/Day_4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Days/Day4.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Days/Day4.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

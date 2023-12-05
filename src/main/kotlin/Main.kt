@@ -1,7 +1,4 @@
-import Days.Day1
-import Days.Day2
-import Days.Day3
-import Days.Day4
+import Days.*
 
 fun main(args: Array<String>) {
     println("What day do you want to run?")
@@ -18,5 +15,7 @@ fun main(args: Array<String>) {
         day == 3 && part == 2 -> Day3().executePartOne()
         day == 4 && part == 1 -> Day4().executePartOne()
         day == 4 && part == 2 -> Day4().executePartTwo()
+        day == 5 && part == 1 -> Day5().executePartTwo()
+        day == 5 && part == 2 -> Day5().executePartTwo()
     }
 }

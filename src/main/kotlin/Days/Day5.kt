@@ -9,13 +9,24 @@ class Day5: Day {
     }
 
     override fun executePartTwo() {
-        TODO("Not yet implemented")
+        var result = Long.MAX_VALUE
+        almanac.seeds.chunked(2) { LongRange(it[0], it[0] + it[1] - 1) }
+            .forEach { range ->
+                range.forEach {
+                    val location = almanac.lowestLocation(it)
+                    if (location < result) {
+                        result = location
+                    }
+                }
+            }
+
+        println(result)
     }
 }
 
 private class Almanac(input: List<String>) {
     val orderedMaps: MutableList<Map> = mutableListOf()
-    val seeds: List<Long>
+    var seeds: List<Long>
 
     init {
         seeds = Regex("seeds: (((\\d+) ?)+)")
@@ -57,10 +68,14 @@ private class Almanac(input: List<String>) {
 
     fun lowestLocation(): Long =
         seeds.minOf {
-            orderedMaps.fold(it) { value, map ->
-                map.destinationFor(value)
-            }
+            lowestLocation(it)
         }
+
+    fun lowestLocation(seedValue: Long) : Long =
+        orderedMaps.fold(seedValue) { value, map ->
+            map.destinationFor(value)
+        }
+
 }
 
 private class Map(input: List<List<Long>>) {

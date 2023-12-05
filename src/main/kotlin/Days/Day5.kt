@@ -3,7 +3,7 @@ package Days
 import java.io.File
 
 class Day5: Day {
-    private val almanac = Almanac(File("src/main/resources/Data/Day_4.txt").readLines())
+    private val almanac = Almanac(File("src/main/resources/Data/Day_5.txt").readLines())
     override fun executePartOne() {
         println(almanac.lowestLocation())
     }
@@ -14,45 +14,65 @@ class Day5: Day {
 }
 
 private class Almanac(input: List<String>) {
-    val orderedMaps: List<Map>
-    val seeds: List<Int>
+    val orderedMaps: MutableList<Map> = mutableListOf()
+    val seeds: List<Long>
 
     init {
-        orderedMaps = listOf()
-        seeds = listOf()
+        seeds = Regex("seeds: (((\\d+) ?)+)")
+            .find(input.first())!!
+            .groups[1]!!
+            .value
+            .split(" ")
+            .map { it.toLong() }
+
+        val headerRowRegex = Regex("map:")
+        val numbersRowRegex = Regex("(\\d+ ?)+")
+
+        var inMap = false
+        val numberList: MutableList<List<Long>> = mutableListOf()
+
+        input.forEachIndexed { index, s ->
+            if (headerRowRegex.find(s) != null) {
+                inMap = true
+            }
+
+            if (inMap && numbersRowRegex.matches(s)) {
+                numberList.add(
+                    numbersRowRegex
+                        .find(s)!!
+                        .groups[0]!!
+                        .value
+                        .split(" ")
+                        .map { it.toLong() }
+                )
+            }
+
+            if ((s.isEmpty() || index == input.count() - 1) && numberList.isNotEmpty()) {
+                inMap = false
+                orderedMaps.add(Map(numberList))
+                numberList.clear()
+            }
+        }
     }
 
-    fun lowestLocation(): Int {
-        // Figure out the final destination for each seed, by looping through the ordered maps. We actually
-        // should be able to do this with just looping through them once because we can figure out all the seeds
-        // destinations together.
-        return 0
-    }
+    fun lowestLocation(): Long =
+        seeds.minOf {
+            orderedMaps.fold(it) { value, map ->
+                map.destinationFor(value)
+            }
+        }
 }
 
-private class Map(input: String) {
+private class Map(input: List<List<Long>>) {
     val ranges: List<Range>
 
     init {
-        // Replace
-        ranges = listOf()
+        ranges = input.map { Range(it[1], it[0], it[2]) }
     }
 
-    fun destinationFor(source: Int): Int {
-        // Logic to find the destination based on the provided ranges
-        return 0
-    }
+    fun destinationFor(source: Long): Long =
+        ranges.firstOrNull { LongRange(it.source, it.source + it.length - 1).contains(source) }?.
+        let { source - it.source + it.destination } ?: source
 }
 
-private class Range(input: String) {
-    val source: Int
-    val destination: Int
-    val length: Int
-
-    init {
-        // Replace
-        source = 0
-        destination = 0
-        length = 0
-    }
-}
+data class Range(val source: Long, val destination: Long, val length: Long) { }

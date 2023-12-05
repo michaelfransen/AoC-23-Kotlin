@@ -15,7 +15,7 @@ fun main(args: Array<String>) {
         day == 3 && part == 2 -> Day3().executePartOne()
         day == 4 && part == 1 -> Day4().executePartOne()
         day == 4 && part == 2 -> Day4().executePartTwo()
-        day == 5 && part == 1 -> Day5().executePartTwo()
+        day == 5 && part == 1 -> Day5().executePartOne()
         day == 5 && part == 2 -> Day5().executePartTwo()
     }
 }

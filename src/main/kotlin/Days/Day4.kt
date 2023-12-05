@@ -1,9 +1,6 @@
 package Days
 
 import java.io.File
-import java.time.Duration
-import java.time.LocalDate
-import java.time.LocalDateTime
 import kotlin.math.pow
 
 class Day4: Day {

@@ -1,4 +1,4 @@
-package Days
+package days
 
 import java.io.File
 import java.lang.Exception

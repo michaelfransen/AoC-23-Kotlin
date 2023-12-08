@@ -1,4 +1,4 @@
-package Days
+package days
 
 interface Day {
     fun executePartOne()

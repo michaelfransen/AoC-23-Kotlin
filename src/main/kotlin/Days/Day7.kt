@@ -5,19 +5,30 @@ import java.lang.Exception
 
 class Day7: Day {
 
-    private var hands = File("src/main/resources/Data/Day_7.txt").readLines().map(::Hand)
+    private var hands = File("src/main/resources/Data/Day_7.txt").readLines()
 
     override fun executePartOne() {
-        print(hands.sorted().mapIndexed { index, hand -> (index + 1) * hand.bid }.sum())
+        println(
+            hands.map { Hand(it, false) }
+                .sorted()
+                .mapIndexed { index, hand -> (index + 1) * hand.bid }
+                .sum()
+        )
     }
 
     override fun executePartTwo() {
+        println(
+            hands.map { Hand(it, true) }
+                .sorted()
+                .mapIndexed { index, hand -> (index + 1) * hand.bid }
+                .sum()
+        )
     }
 }
 
-data class Hand(val input: String): Comparable<Hand> {
+data class Hand(val input: String, val usesJokers: Boolean): Comparable<Hand> {
     val bid: Int
-    var values: List<Int>
+    var values: MutableList<Int>
 
     private val regex = Regex("([1-9TJQKA]{5}) (\\d+)")
 
@@ -33,12 +44,23 @@ data class Hand(val input: String): Comparable<Hand> {
                 it == 'A' -> 14
                 else -> throw Exception()
             }
-        }
+        }.toMutableList()
     }
 
-    val value: Int
+    private val value: Int
         get() {
+            if (usesJokers) {
+                values.replaceAll { if (it == 11) 1 else it }
+            }
+
             val valueSet = values.groupingBy { it }.eachCount().toMutableMap()
+
+            if (usesJokers && valueSet.count() > 1 && valueSet.contains(1)) {
+                val jokerCount = valueSet.remove(1)!!
+                val mostFrequentKey = valueSet.maxBy { it.value }.key
+                valueSet[mostFrequentKey] = valueSet[mostFrequentKey]!!.plus(jokerCount)
+            }
+
             return when {
                 valueSet.count() == 1 -> 7
                 valueSet.values.contains(4) -> 6

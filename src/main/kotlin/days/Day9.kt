@@ -12,13 +12,15 @@ class Day9: Day {
     }
 
     override fun executePartTwo() {
-        TODO("Not yet implemented")
+        println(
+            historySets.sumOf { it.previousValue }
+        )
     }
 }
 
 class HistorySet(val input: String) {
     private val history: List<Int> = input.split(" ").map { it.toInt() }
-    
+
     val nextValue: Int
         get() {
             var valueToAdd = 0
@@ -30,6 +32,19 @@ class HistorySet(val input: String) {
 
 
             return history.last() + valueToAdd
+        }
+
+    val previousValue: Int
+        get() {
+            var valueToAdd = 0
+
+            val rows = generate(history)
+            for (row in rows.subList(0, rows.count() - 1).reversed()) {
+                valueToAdd = -1 * valueToAdd + row.first()
+            }
+
+
+            return history.first() + valueToAdd * -1
         }
 
     private fun generate(row: List<Int>): List<List<Int>> {

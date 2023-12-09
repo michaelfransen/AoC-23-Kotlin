@@ -7,8 +7,6 @@
     <list default="true" id="dfa68222-11c9-44ca-a743-a2921e84f6ab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/days/Day8.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/days/Day8.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Data/Day_2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Data/Day_2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Data/Day_8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Data/Day_8.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,17 +184,6 @@
       <updated>1701651549932</updated>
     </task>
     <servers />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/days/Day8.kt</url>
-          <line>20</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

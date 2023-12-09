@@ -23,5 +23,7 @@ fun main(args: Array<String>) {
         day == 7 && part == 2 -> Day7().executePartTwo()
         day == 8 && part == 1 -> Day8().executePartOne()
         day == 8 && part == 2 -> Day8().executePartTwo()
+        day == 9 && part == 1 -> Day9().executePartOne()
+        day == 9 && part == 2 -> Day9().executePartTwo()
     }
 }

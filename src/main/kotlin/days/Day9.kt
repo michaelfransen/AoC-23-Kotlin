@@ -6,45 +6,36 @@ class Day9: Day {
     private var historySets = File("src/main/resources/Data/Day_9.txt").readLines().map(::HistorySet)
 
     override fun executePartOne() {
-        println(
-            historySets.sumOf { it.nextValue }
-        )
+        println(historySets.sumOf { it.nextValue })
     }
 
     override fun executePartTwo() {
-        println(
-            historySets.sumOf { it.previousValue }
-        )
+        println(historySets.sumOf { it.previousValue })
     }
 }
 
-class HistorySet(val input: String) {
+class HistorySet(private val input: String) {
     private val history: List<Int> = input.split(" ").map { it.toInt() }
 
     val nextValue: Int
         get() {
-            var valueToAdd = 0
-
             val rows = generate(history)
-            for (row in rows.subList(0, rows.count() - 1).reversed()) {
-                valueToAdd += row.last()
-            }
-
-
-            return history.last() + valueToAdd
+            return rows.subList(0, rows.count() - 1)
+                .reversed()
+                .fold(0) { acc, ints ->
+                    acc + ints.last()
+                } + history.last()
         }
 
     val previousValue: Int
         get() {
-            var valueToAdd = 0
-
             val rows = generate(history)
-            for (row in rows.subList(0, rows.count() - 1).reversed()) {
-                valueToAdd = -1 * valueToAdd + row.first()
-            }
-
-
-            return history.first() + valueToAdd * -1
+            return generate(history)
+                .subList(0, rows.count() - 1)
+                .reversed()
+                .fold(0) { acc, history ->
+                    -1 * acc + history.first()
+                } * -1 + history.first()
         }
 
     private fun generate(row: List<Int>): List<List<Int>> {

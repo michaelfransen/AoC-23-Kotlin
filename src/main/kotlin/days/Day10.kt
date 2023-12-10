@@ -20,6 +20,40 @@ class Day10: Day {
         println(determinePathFor(startingPosition).count() / 2)
     }
 
+    override fun executePartTwo() {
+        val path = determinePathFor(
+            pipes.mapIndexed { y, values ->
+                val x = values.indexOf(PipeType.Start)
+                if (x == -1 ) null else Pair(x, y) }
+                .filterNotNull()
+                .first()
+        ).toSet()
+
+        var area = 0
+        val boundaries: List<PipeType> = listOf(PipeType.NorthSouth, PipeType.NorthWest, PipeType.NorthEast)
+
+        (0..<pipes.count()).forEachIndexed { y, _ ->
+            (0..<pipes.first().count()).forEachIndexed { x, _ ->
+                // Is part of the pipe loop, so doesn't count
+                if (path.contains(Position(x, y))) {
+                    return@forEachIndexed
+                }
+
+                val numberOfItemsToLeft = path
+                    .filter { it.second == y && it.first < x }
+                    .count { boundaries.contains(pipes[it.second][it.first]) }
+
+                if (numberOfItemsToLeft % 2 == 0) {
+                    return@forEachIndexed
+                } else {
+                    area++
+                }
+            }
+        }
+
+        println(area)
+    }
+
     private fun determinePathFor(startingPosition: Position): List<Position> {
         val list: MutableList<Position> = mutableListOf(startingPosition)
 
@@ -71,10 +105,6 @@ class Day10: Day {
         }
 
         return returnValue
-    }
-
-    override fun executePartTwo() {
-
     }
 }
 
